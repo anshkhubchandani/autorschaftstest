@@ -1,30 +1,6 @@
-import sys
 import string
 import re
 
-#Einlesen
-def read_file(path):
-    inputfile= open(path ,'r')
-    content = inputfile.read()
-    inputfile.close()
-    print(content)
-    return content
-
-print("\nOriginaltext: ")
-text = read_file("texte/autor1.txt")
-
-# Vorverarbeitung
-def preprocessing(text):
-
-    text_clean = text.replace('--', '')
-    
-    text_clean = text_clean.replace('\n', ' ')
-    
-    text_clean = " ".join(text_clean.split())
-    
-    return text_clean
-
-filtered_text = preprocessing(text)
 
 # Zählen der Wörter insgesamt
 def count_words(text):
@@ -32,14 +8,11 @@ def count_words(text):
     counts = len(words_list)
     return counts
 
-number_of_words = count_words(filtered_text)
-print(f"\nAnzahl der Wörter insgesamt: {number_of_words}")
-
 # Zählen der Wörter die nur einmal im Text vorkommen
-def count_unique_words(filtered_text):
-    text_lower = filtered_text.lower() # in kleine Buchstaben umwandeln
-    filtered_text = text_lower.translate(str.maketrans('', '', string.punctuation)) # Satzzeichen aus Betrachtung ausschließen
-    words_list = filtered_text.split()
+def count_unique_words(text):
+    text_lower = text.lower() # in kleine Buchstaben umwandeln
+    text = text_lower.translate(str.maketrans('', '', string.punctuation)) # Satzzeichen aus Betrachtung ausschließen
+    words_list = text.split()
     
     word_counts = {}
     
@@ -56,13 +29,10 @@ def count_unique_words(filtered_text):
             
     return unique_count
 
-number_unique_words = count_unique_words(text)
-print(f"Anzahl der einzigartigen Wörter: {number_unique_words}")
-
 
 # Zählen der Wörter innerhalb eines Satzes
-def words_per_sentence(filtered_text):
-    text_without_break = filtered_text.replace('\n', ' ')
+def words_per_sentence(text):
+    text_without_break = text.replace('\n', ' ')
     
     sentences = re.split(r'[.!?]', text_without_break)
     print(f"Anzahl der Sätze: {len(sentences)}") # Sätze ausgeben lassen
@@ -89,22 +59,16 @@ def words_per_sentence(filtered_text):
 
     return sentence_lengths
 
-number_of_words_in_sentence = words_per_sentence(filtered_text)
-print(f"Anzahl der Wörter in Sätzen: {number_of_words_in_sentence}")
-
 
 # Einzelne Wortlängen bestimmen
-def get_word_lengths(filtered_text):
-    text_lower = filtered_text.lower()
-    filtered_text = text_lower.translate(str.maketrans('', '', string.punctuation))
+def get_word_lengths(text):
+    text_lower = text.lower()
+    text = text_lower.translate(str.maketrans('', '', string.punctuation))
     
-    words_list = filtered_text.split()
+    words_list = text.split()
     
     word_lengths = []
     for word in words_list:
         word_lengths.append(len(word))
         
     return word_lengths
-
-list_word_lengths = get_word_lengths(filtered_text)
-print(f"Wortlängen: {list_word_lengths}")
