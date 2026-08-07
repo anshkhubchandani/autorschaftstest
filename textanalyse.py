@@ -11,8 +11,8 @@ def count_words(text):
 # Zählen der Wörter die nur einmal im Text vorkommen
 def count_unique_words(text):
     text_lower = text.lower() # in kleine Buchstaben umwandeln
-    text = text_lower.translate(str.maketrans('', '', string.punctuation)) # Satzzeichen aus Betrachtung ausschließen
-    words_list = text.split()
+    #text = text_lower.translate(str.maketrans('', '', string.punctuation)) # Satzzeichen aus Betrachtung ausschließen
+    words_list = text_lower.split()
     
     word_counts = {}
     
@@ -35,8 +35,16 @@ def words_per_sentence(text):
     text_without_break = text.replace('\n', ' ')
     
     sentences = re.split(r'[.!?]', text_without_break)
-    print(f"Anzahl der Sätze: {len(sentences)}") # Sätze ausgeben lassen
 
+    # Korrekte Sätze herausfiltern
+    valid_sentences = []
+
+    for sentence in sentences:
+        if sentence.strip() != "":
+            valid_sentences.append(sentence)
+
+    print(f"Anzahl der Sätze: {len(valid_sentences)}")
+    
     sentence_lengths = []
 
     for sentence in sentences:
@@ -63,7 +71,7 @@ def words_per_sentence(text):
 # Einzelne Wortlängen bestimmen
 def get_word_lengths(text):
     text_lower = text.lower()
-    text = text_lower.translate(str.maketrans('', '', string.punctuation))
+    #text = text_lower.translate(str.maketrans('', '', string.punctuation))
     
     words_list = text.split()
     
