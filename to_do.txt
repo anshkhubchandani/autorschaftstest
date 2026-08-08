@@ -1,1 +1,28 @@
 #Hier sprechen wir uns ab! :D
+
+#Test
+Der Geist eines Kunstwerkes, das Maß der Empfindung, das Menschliche,
+das in ihm ist -- sie bleiben durch wechselnde Zeiten unverändert an
+Wert; die Form, die diese drei aufnahm, die Mittel, die sie ausdrückten,
+und der Geschmack, den die Epoche ihres Entstehens über sie ausgoß, sie
+sind vergänglich und rasch alternd.
+
+
+
+Geist und Empfindung bewahren ihre Art, so im Kunstwerk wie im Menschen;
+technische Errungenschaften, bereitwilligst erkannt und bewundert,
+werden überholt, oder der Geschmack wendet sich von ihnen gesättigt ab. --
+
+
+Text besteht aus unsere def nur aus 2 Sätzen. 
+Der erste Satz hat 50 Wörter, der zweite 29 
+DSL = (50 + 29) / 2 = 79 / 2 = 39.5
+
+DSS:
+Im ersten Satz: 9 Kommas, 1 Semikolon, 1 Punkt = 11
+im 2ten: 4 Kommas, 1 Semikolon + 1 Punkt = 6
+total = 9+1 + 4 + 1 = 17/2 = 8.5 
+
+Wichtig: Intern sollten wir nicht runden. 
+Wir runden nur bei der print Ausgabe -> Für den späteren Autorenvergleich sollten wir mit den genauen Zahlen weiterrechnen!
+
