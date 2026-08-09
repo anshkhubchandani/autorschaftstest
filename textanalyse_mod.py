@@ -1,14 +1,18 @@
-from vorverarbeitung import read_file, preprocessing
-
-""" Functionen 
+""" Funktionen 
 * DWL = durchschnittliche Wortlänge
 * TTR = Anzahl verschiedener Wörter / Anzahl aller Wörter
 * HLR = Anzahl Wörter, die genau einmal vorkommen / Anzahl aller Wörter
 * DSL = durchschnittliche Wörter pro Satz
 * DSS = durchschnittliche Satzteile pro Satz
+
+ohne imports :( 
 """
 
 def get_words(text):
+    """
+    Bereitet den Text für die Wortanalyse vor
+    und gibt alle Wörter als Liste zurück.
+    """
     text = text.lower() 
 
     text = text.replace(".", " ")
@@ -31,12 +35,14 @@ def get_words(text):
 
 
 def count_words(text):
-    """ Anzahl der Wörter im Text """
+    """ Gibt die Anzahl aller Wörter im Text zurück."""
     words_list = get_words(text)
     return len(words_list)
 
 def count_different_words(text):
-    """ Anzahl der verschiedenen Wörter im Text """
+    """
+    Gibt die Anzahl verschiedener Wörter im Text zurück.
+    """
     words_list = get_words(text)
     different_words = []
 
@@ -45,10 +51,13 @@ def count_different_words(text):
             different_words.append(word)
     return len(different_words)
 
-
 def count_unique_words(text):
-    """ Anzahl der Wörter, die genau einmal im Text vorkommen 
-        wichtig für HLR (Hapax Legomena Ratio) """
+    """
+    Gibt die Anzahl der Wörter zurück, die genau einmal
+    im Text vorkommen.
+    Dieser Wert wird für die HLR benötigt.
+    """
+
     words_list = get_words(text)
     word_counts = {}
 
@@ -66,7 +75,9 @@ def count_unique_words(text):
     return unique_count
 
 def average_word_length(text):
-    """ Durchschnittliche Wortlänge """
+    """
+    Berechnet die durchschnittliche Wortlänge (DWL).
+    """
     words_list = get_words(text)
     total_length = 0 
 
@@ -76,21 +87,32 @@ def average_word_length(text):
     return total_length / len(words_list)
 
 def ttr(text):
-    """ Type-Token-Ratio (TTR) = Anzahl verschiedener Wörter / Anzahl aller Wörter """
+    """
+    Berechnet die Type-Token-Ratio (TTR).
+    TTR = verschiedene Wörter / alle Wörter
+    """
+
     all_words = count_words(text)
     different_words = count_different_words(text)
     return different_words / all_words
 
 def hlr(text):
-    """ Hapax Legomena Ratio (HLR) = Anzahl Wörter, die genau einmal vorkommen / Anzahl aller Wörter """
+    """
+    Berechnet die Hapax-Legomena-Ratio (HLR).
+    HLR = einmal vorkommende Wörter / alle Wörter
+    """
+
     all_words = count_words(text)
     unique_words = count_unique_words(text)
     return unique_words / all_words
 
 def get_sentences(text):
-    """ Texte in Sätze aufteilen """
-    text = text.replace("!", " ")
-    text = text.replace("?", " ")
+    """
+    Teilt einen Text anhand von Punkt, Ausrufezeichen
+    und Fragezeichen in Sätze auf.
+    """
+    text = text.replace("!", ".")
+    text = text.replace("?", ".")
     sentences = text.split(".")
     valid_sentences = []
 
@@ -103,7 +125,10 @@ def get_sentences(text):
 
 
 def words_per_sentence(text):
-    """ DSL = durchschnittliche Wörter pro Satz """
+    """
+    Berechnet die durchschnittliche Anzahl
+    der Wörter pro Satz (DSL).
+    """
     sentences = get_sentences(text)
     total_words = 0 
 
@@ -113,8 +138,11 @@ def words_per_sentence(text):
 
 
 def parts_per_sentence(text):
-    """ DSS = durchschnittliche Satzteile pro Satz
-        Komma, Doppelpunkt und Semikolon trennen Satzteile """
+    """
+    Berechnet die durchschnittliche Anzahl
+    der Satzteile pro Satz (DSS).
+    Komma, Doppelpunkt und Semikolon trennen Satzteile.
+    """
     sentences = get_sentences(text)
     total_parts = 0
 
@@ -127,3 +155,30 @@ def parts_per_sentence(text):
 
     return total_parts / len(sentences)
 
+
+def get_signature(text):
+    """
+    Berechnet die Signatur eines Textes.
+    Reihenfolge:
+        0: DWL
+        1: TTR
+        2: HLR
+        3: DSL
+        4: DSS
+
+    Parameter:
+        text: vorverarbeiteter Text
+
+    Rückgabe:
+        Liste mit fünf Kennzahlen
+
+    """
+
+    signature = [
+        average_word_length(text),
+        ttr(text),
+        hlr(text),
+        words_per_sentence(text),
+        parts_per_sentence(text)
+    ]
+    return signature
