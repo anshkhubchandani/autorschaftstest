@@ -41,6 +41,14 @@ wahrscheinlichste Zuordnung ausgegeben.
 
 ## Programmstruktur
 
+autorschaftstest/
+├── texte/                  # Ordner für die zu analysierende Textdateien
+├── autoren.py              # Zuordnung der Textdateien zu den (besten) Autoren
+├── main.py                 # Für das Starten des Programms
+├── README.md               # Die Projektdokumentation
+├── textanalyse_mod.py      # Hauptmodul mit den Analysefunktionen
+├── vorverarbeitung.py      # Skript für die Vorverarbeitung und Filterung der Textdateien
+
 ### main.py
 
 Hauptprogramm des Autorschaftstests.

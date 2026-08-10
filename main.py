@@ -1,6 +1,6 @@
 from vorverarbeitung import read_file, preprocessing
 from autoren import (similarity, get_author_signature, find_best_author)
-from textanalyse_mod import ( count_words, count_different_words, count_unique_words, average_word_length, ttr, hlr, words_per_sentence, parts_per_sentence, get_signature)
+from textanalyse import ( count_words, count_different_words, count_unique_words, average_word_length, ttr, hlr, words_per_sentence, parts_per_sentence, get_signature)
 
 def main():
     """
