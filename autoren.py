@@ -1,6 +1,6 @@
 from vorverarbeitung import read_file, preprocessing
 
-from textanalyse_mod import get_signature
+from textanalyse import get_signature
 
 def get_author_signature(filename):
     """
