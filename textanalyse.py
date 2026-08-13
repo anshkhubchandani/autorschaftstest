@@ -4,8 +4,6 @@
 * HLR = Anzahl Wörter, die genau einmal vorkommen / Anzahl aller Wörter
 * DSL = durchschnittliche Wörter pro Satz
 * DSS = durchschnittliche Satzteile pro Satz
-
-ohne imports :( 
 """
 
 def get_words(text):
