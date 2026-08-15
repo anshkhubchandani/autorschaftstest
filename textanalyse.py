@@ -126,7 +126,12 @@ def words_per_sentence(text):
     """
     Berechnet die durchschnittliche Anzahl
     der Wörter pro Satz (DSL).
+    Zuerst werden die Sätze bestimmt. 
+    Dann werden die Wörter jedes Satzes gezählt.
+    zB: Wenn ein Text zwei Sätze mit 5 und 7 Wörtern hat: 
+    DSL = (5 + 7) / 2 = 6
     """
+
     sentences = get_sentences(text)
     total_words = 0 
 

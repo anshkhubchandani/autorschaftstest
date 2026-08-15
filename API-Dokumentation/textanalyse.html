@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module textanalyse</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">textanalyse</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:/Users/anshulkhubchandani/Documents/Master_3_Semester/AlgorithmischeGrundlagen%20in%20Python/autorschaftstest/textanalyse.py">/Users/anshulkhubchandani/Documents/Master_3_Semester/AlgorithmischeGrundlagen in Python/autorschaftstest/textanalyse.py</a></td></tr></table>
+    <p><span class="code">Funktionen&nbsp;<br>
+*&nbsp;DWL&nbsp;=&nbsp;durchschnittliche&nbsp;Wortlänge<br>
+*&nbsp;TTR&nbsp;=&nbsp;Anzahl&nbsp;verschiedener&nbsp;Wörter&nbsp;/&nbsp;Anzahl&nbsp;aller&nbsp;Wörter<br>
+*&nbsp;HLR&nbsp;=&nbsp;Anzahl&nbsp;Wörter,&nbsp;die&nbsp;genau&nbsp;einmal&nbsp;vorkommen&nbsp;/&nbsp;Anzahl&nbsp;aller&nbsp;Wörter<br>
+*&nbsp;DSL&nbsp;=&nbsp;durchschnittliche&nbsp;Wörter&nbsp;pro&nbsp;Satz<br>
+*&nbsp;DSS&nbsp;=&nbsp;durchschnittliche&nbsp;Satzteile&nbsp;pro&nbsp;Satz</span></p>
+<p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-average_word_length"><strong>average_word_length</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;durchschnittliche&nbsp;Wortlänge&nbsp;(DWL).</span></dd></dl>
+ <dl><dt><a name="-count_different_words"><strong>count_different_words</strong></a>(text)</dt><dd><span class="code">Gibt&nbsp;die&nbsp;Anzahl&nbsp;verschiedener&nbsp;Wörter&nbsp;im&nbsp;Text&nbsp;zurück.</span></dd></dl>
+ <dl><dt><a name="-count_unique_words"><strong>count_unique_words</strong></a>(text)</dt><dd><span class="code">Gibt&nbsp;die&nbsp;Anzahl&nbsp;der&nbsp;Wörter&nbsp;zurück,&nbsp;die&nbsp;genau&nbsp;einmal<br>
+im&nbsp;Text&nbsp;vorkommen.<br>
+Dieser&nbsp;Wert&nbsp;wird&nbsp;für&nbsp;die&nbsp;HLR&nbsp;benötigt.</span></dd></dl>
+ <dl><dt><a name="-count_words"><strong>count_words</strong></a>(text)</dt><dd><span class="code">Gibt&nbsp;die&nbsp;Anzahl&nbsp;aller&nbsp;Wörter&nbsp;im&nbsp;Text&nbsp;zurück.</span></dd></dl>
+ <dl><dt><a name="-get_sentences"><strong>get_sentences</strong></a>(text)</dt><dd><span class="code">Teilt&nbsp;einen&nbsp;Text&nbsp;anhand&nbsp;von&nbsp;Punkt,&nbsp;Ausrufezeichen<br>
+und&nbsp;Fragezeichen&nbsp;in&nbsp;Sätze&nbsp;auf.</span></dd></dl>
+ <dl><dt><a name="-get_signature"><strong>get_signature</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;Signatur&nbsp;eines&nbsp;Textes.<br>
+Reihenfolge:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;0:&nbsp;DWL<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1:&nbsp;TTR<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2:&nbsp;HLR<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3:&nbsp;DSL<br>
+&nbsp;&nbsp;&nbsp;&nbsp;4:&nbsp;DSS<br>
+&nbsp;<br>
+Parameter:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;text:&nbsp;vorverarbeiteter&nbsp;Text<br>
+&nbsp;<br>
+Rückgabe:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Liste&nbsp;mit&nbsp;fünf&nbsp;Kennzahlen</span></dd></dl>
+ <dl><dt><a name="-get_words"><strong>get_words</strong></a>(text)</dt><dd><span class="code">Bereitet&nbsp;den&nbsp;Text&nbsp;für&nbsp;die&nbsp;Wortanalyse&nbsp;vor<br>
+und&nbsp;gibt&nbsp;alle&nbsp;Wörter&nbsp;als&nbsp;Liste&nbsp;zurück.</span></dd></dl>
+ <dl><dt><a name="-hlr"><strong>hlr</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;Hapax-Legomena-Ratio&nbsp;(HLR).<br>
+HLR&nbsp;=&nbsp;einmal&nbsp;vorkommende&nbsp;Wörter&nbsp;/&nbsp;alle&nbsp;Wörter</span></dd></dl>
+ <dl><dt><a name="-parts_per_sentence"><strong>parts_per_sentence</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;durchschnittliche&nbsp;Anzahl<br>
+der&nbsp;Satzteile&nbsp;pro&nbsp;Satz&nbsp;(DSS).<br>
+Komma,&nbsp;Doppelpunkt&nbsp;und&nbsp;Semikolon&nbsp;trennen&nbsp;Satzteile.</span></dd></dl>
+ <dl><dt><a name="-ttr"><strong>ttr</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;Type-Token-Ratio&nbsp;(TTR).<br>
+TTR&nbsp;=&nbsp;verschiedene&nbsp;Wörter&nbsp;/&nbsp;alle&nbsp;Wörter</span></dd></dl>
+ <dl><dt><a name="-words_per_sentence"><strong>words_per_sentence</strong></a>(text)</dt><dd><span class="code">Berechnet&nbsp;die&nbsp;durchschnittliche&nbsp;Anzahl<br>
+der&nbsp;Wörter&nbsp;pro&nbsp;Satz&nbsp;(DSL).<br>
+Zuerst&nbsp;werden&nbsp;die&nbsp;Sätze&nbsp;bestimmt.&nbsp;<br>
+Dann&nbsp;werden&nbsp;die&nbsp;Wörter&nbsp;jedes&nbsp;Satzes&nbsp;gezählt.<br>
+zB:&nbsp;Wenn&nbsp;ein&nbsp;Text&nbsp;zwei&nbsp;Sätze&nbsp;mit&nbsp;5&nbsp;und&nbsp;7&nbsp;Wörtern&nbsp;hat:&nbsp;<br>
+DSL&nbsp;=&nbsp;(5&nbsp;+&nbsp;7)&nbsp;/&nbsp;2&nbsp;=&nbsp;6</span></dd></dl>
+</td></tr></table>
+</body></html>

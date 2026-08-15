@@ -1,5 +1,4 @@
 from vorverarbeitung import read_file, preprocessing
-
 from textanalyse import get_signature
 
 def get_author_signature(filename):
