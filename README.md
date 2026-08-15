@@ -106,9 +106,9 @@ Funktionen:
 
 Dieser Ordner enthält die verwendeten Referenztexte und Testtexte.
 
-## API-Dokumentation/
+### API-Dokumentation/
 
-Dieser Ordner enthält die Dokumentationen der verwendeten Module.
+Dieser Ordner enthält die Dokumentationen der verwendeten Module im HTML-Format.
 
 ## Benutzung
 
