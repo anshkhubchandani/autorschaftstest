@@ -42,8 +42,10 @@ wahrscheinlichste Zuordnung ausgegeben.
 ## Programmstruktur
 ```text
 autorschaftstest/
+├── API-Dokumentation/      # Ordner für die Dokumentationen im HTML-Format
 ├── texte/                  # Ordner für die zu analysierende Textdateien
 ├── autoren.py              # Zuordnung der Textdateien zu den (besten) Autoren
+├── Dokumentation.pdf       # Enthält die schriftliche Ausarbeitung der Dokumentation in PDF
 ├── main.py                 # Für das Starten des Programms
 ├── README.md               # Die Projektdokumentation
 ├── textanalyse.py          # Hauptmodul mit den Analysefunktionen
@@ -68,7 +70,7 @@ Funktionen:
 - preprocessing()
 
 
-### textanalyse_mod.py
+### textanalyse.py
 
 Enthält die Funktionen zur Analyse eines Textes.
 
@@ -104,6 +106,9 @@ Funktionen:
 
 Dieser Ordner enthält die verwendeten Referenztexte und Testtexte.
 
+## API-Dokumentation/
+
+Dieser Ordner enthält die Dokumentationen der verwendeten Module.
 
 ## Benutzung
 
