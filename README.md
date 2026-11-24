@@ -1,4 +1,4 @@
-# Autorschaftstest – stylometric authorship attribution (Python)
+# Autorschaftstest: stylometric authorship attribution (Python)
 
 Who wrote this text? The tool compares an unknown German text with reference works by Goethe, Schiller,
 Eichendorff, Thomas Mann, Wittgenstein, Busoni and Joyce and ranks the most likely authors.
@@ -27,7 +27,7 @@ by every word- and character-based method; the original solution got one of thre
 
 | Problem in v1 | Fix in v2 |
 |---|---|
-| Only 5 global features (word length, TTR, …) – too little signal | **Burrows' Delta** on the most frequent words. Function words (*und, der, nicht, sich* …) are used unconsciously and independent of topic – the standard signal in stylometry |
+| Only 5 global features (word length, TTR, …): too little signal | **Burrows' Delta** on the most frequent words. Function words (*und, der, nicht, sich* …) are used unconsciously and independent of topic. This is the standard signal in stylometry |
 | Features on different scales combined with hand-picked weights (11, 33, 50, 0.4, 4) | **z-score normalization** learned from the reference corpus, no magic numbers |
 | Type-token ratio depends on text length, so short and long texts are not comparable | **Equal-sized chunks** and **MATTR** (moving-average TTR) |
 | One reference signature per author | Many chunks per author → robust author profiles and a measurable accuracy |
@@ -38,7 +38,7 @@ by every word- and character-based method; the original solution got one of thre
 | Goethe split into two "authors" by work | References grouped **per author** |
 
 ## Usage
-No external dependencies – Python 3.10+ standard library only.
+No external dependencies: Python 3.10+ standard library only.
 
 ```bash
 python -m stylometry identify texte/faust-test.txt            # rank the most likely authors
@@ -50,7 +50,7 @@ python -m unittest discover tests                             # run the tests
 
 Example:
 ```
-Text: texte/faust-test.txt (11,388 words) – method: cosine-delta
+Text: texte/faust-test.txt (11,388 words), method: cosine-delta
 
 Rank  Author            Distance
 1     Goethe               0.094

@@ -39,7 +39,7 @@ def normalize(text: str) -> str:
     """Unicode-normalize, unify dashes/whitespace and drop stage-direction underscores."""
     text = unicodedata.normalize("NFC", text)
     text = text.replace("﻿", "")
-    text = text.replace("--", " – ").replace("_", " ")
+    text = text.replace("--", " ").replace("_", " ")
     return re.sub(r"\s+", " ", text).strip()
 
 

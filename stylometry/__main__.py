@@ -27,7 +27,7 @@ def cmd_identify(args):
     model = METHODS[args.method]().fit(train_samples(config, args.chunk_size))
     ranking = model.rank(text)
 
-    print(f"Text: {args.file} ({n_words:,} words) – method: {args.method}\n")
+    print(f"Text: {args.file} ({n_words:,} words), method: {args.method}\n")
     print(f"{'Rank':<6}{'Author':<16}{'Distance':>10}")
     for i, (author, dist) in enumerate(ranking[:args.top], 1):
         print(f"{i:<6}{author:<16}{dist:>10.3f}")
