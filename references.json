@@ -1,0 +1,40 @@
+{
+  "references": {
+    "Goethe": [
+      "texte/Goethe-ItalienischeReise1-referenz.txt",
+      "texte/Faust-referenz.txt"
+    ],
+    "Schiller": [
+      "texte/SchillerBriefe-referenz.txt"
+    ],
+    "Eichendorff": [
+      "texte/Eichendorff-Taugenichts.txt"
+    ],
+    "Thomas Mann": [
+      "texte/Mann-Tonio-Kroeger.txt"
+    ],
+    "Wittgenstein": [
+      "texte/Wittgenstein-Tractatus.txt"
+    ],
+    "Busoni": [
+      "texte/Busoni-Tonkunst.txt"
+    ],
+    "Joyce": [
+      "texte/Ulysses.txt"
+    ]
+  },
+  "tests": [
+    {
+      "file": "texte/faust-test.txt",
+      "author": "Goethe"
+    },
+    {
+      "file": "texte/Goethe-ItalienischeReise1-test.txt",
+      "author": "Goethe"
+    },
+    {
+      "file": "texte/Schiller.Briefe-test.txt",
+      "author": "Schiller"
+    }
+  ]
+}

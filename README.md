@@ -1,156 +1,84 @@
-# Autorschaftstest
+# Autorschaftstest – stylometric authorship attribution (Python)
 
-Dieses Programm untersucht einen unbekannten Text und versucht,
-ihn anhand verschiedener sprachlicher Eigenschaften einem bekannten
-Referenztext und damit einem Autor zuzuordnen.
+Who wrote this text? The tool compares an unknown German text with reference works by Goethe, Schiller,
+Eichendorff, Thomas Mann, Wittgenstein, Busoni and Joyce and ranks the most likely authors.
 
-Das Programm wurde im Rahmen der Abschlussaufgabe der Vorlesung
-"Algorithmische Grundlagen in Python" entwickelt.
+> Started as the final project of *Algorithmic Foundations in Python* (FSU Jena, team project).
+> **Version 2** is a rewrite of the attribution method with an evaluation. The original course solution is kept in
+> [`legacy/`](legacy/) and used as the baseline.
 
+## Results
 
-## Funktionsweise
+Evaluated on unseen text: each reference work is split into 2,000-word chunks; methods are trained on the
+first 70 % of every work and tested on the last 30 % (64 test chunks, 7 authors, chance level ≈ 14 %).
 
-Für einen Text werden fünf Eigenschaften berechnet:
+| Method | Accuracy |
+|---|---|
+| **Burrows' Delta** (150 most frequent words) | **89.1 %** |
+| Cosine Delta | 85.9 % |
+| Character 3-grams | 82.8 % |
+| Original 5 features, z-scored | 59.4 % |
+| Original course solution (hand-weighted 5 features) | 7.8 % |
 
-- DWL: durchschnittliche Wortlänge
-- TTR: Anzahl verschiedener Wörter / Anzahl aller Wörter
-- HLR: Anzahl einmal vorkommender Wörter / Anzahl aller Wörter
-- DSL: durchschnittliche Anzahl der Wörter pro Satz
-- DSS: durchschnittliche Anzahl der Satzteile pro Satz
+Separate test excerpts (*Faust*, *Italienische Reise*, Schiller letters): all three are attributed correctly
+by every word- and character-based method; the original solution got one of three right.
 
-Diese fünf Werte bilden die Signatur eines Textes.
+## What changed compared with the course version
 
-Die Signatur des eingegebenen Textes wird mit den Signaturen
-bekannter Referenztexte verglichen.
+| Problem in v1 | Fix in v2 |
+|---|---|
+| Only 5 global features (word length, TTR, …) – too little signal | **Burrows' Delta** on the most frequent words. Function words (*und, der, nicht, sich* …) are used unconsciously and independent of topic – the standard signal in stylometry |
+| Features on different scales combined with hand-picked weights (11, 33, 50, 0.4, 4) | **z-score normalization** learned from the reference corpus, no magic numbers |
+| Type-token ratio depends on text length, so short and long texts are not comparable | **Equal-sized chunks** and **MATTR** (moving-average TTR) |
+| One reference signature per author | Many chunks per author → robust author profiles and a measurable accuracy |
+| No evaluation | Hold-out **evaluation** of all methods against the original baseline |
+| English Project Gutenberg licence text counted as part of the books | Gutenberg header and footer are **stripped** |
+| Naive tokenizer, O(n²) word counting, file encoding not set | Unicode-aware regex tokenizer, `Counter`, explicit UTF-8 |
+| Hard-coded file names, interactive `input()` | **Command-line interface**, corpus defined in `references.json` |
+| Goethe split into two "authors" by work | References grouped **per author** |
 
-Für den Vergleich werden die Unterschiede der einzelnen Werte
-mit folgenden Faktoren gewichtet:
+## Usage
+No external dependencies – Python 3.10+ standard library only.
 
-- DWL: 11
-- TTR: 33
-- HLR: 50
-- DSL: 0.4
-- DSS: 4
-
-Je kleiner der berechnete Ähnlichkeitswert ist, desto ähnlicher
-sind sich die beiden Textsignaturen.
-
-Der Referenztext mit dem kleinsten Ähnlichkeitswert wird als
-wahrscheinlichste Zuordnung ausgegeben.
-
-
-## Programmstruktur
-```text
-autorschaftstest/
-├── API-Dokumentation/      # Ordner für die Dokumentationen im HTML-Format
-├── texte/                  # Ordner für die zu analysierende Textdateien
-├── autoren.py              # Zuordnung der Textdateien zu den (besten) Autoren
-├── Dokumentation.pdf       # Enthält die schriftliche Ausarbeitung der Dokumentation in PDF
-├── main.py                 # Für das Starten des Programms
-├── README.md               # Die Projektdokumentation
-├── textanalyse.py          # Hauptmodul mit den Analysefunktionen
-├── vorverarbeitung.py      # Skript für die Vorverarbeitung und Filterung der Textdateien
+```bash
+python -m stylometry identify texte/faust-test.txt            # rank the most likely authors
+python -m stylometry identify my_text.txt --method delta --top 5
+python -m stylometry features texte/faust-test.txt            # the classic style features
+python -m stylometry evaluate                                 # reproduce the table above
+python -m unittest discover tests                             # run the tests
 ```
 
-### main.py
+Example:
+```
+Text: texte/faust-test.txt (11,388 words) – method: cosine-delta
 
-Hauptprogramm des Autorschaftstests.
+Rank  Author            Distance
+1     Goethe               0.094
+2     Eichendorff          0.237
+3     Schiller             0.260
 
-Das Programm fragt nach einer Textdatei, berechnet deren Signatur
-und vergleicht sie mit den bekannten Referenztexten.
+Most likely author: Goethe (margin to 2nd place 60%, clear)
+```
 
+To add authors, put their texts in `texte/` and list them in `references.json`.
 
-### vorverarbeitung.py
+## Project structure
+```
+stylometry/corpus.py     reading, Gutenberg stripping, tokenizing, sentence splitting, chunking
+stylometry/features.py   classic features, MATTR, word and character n-gram frequencies
+stylometry/methods.py    baseline, classic-z, Burrows' Delta, Cosine Delta, character n-grams
+stylometry/evaluate.py   hold-out evaluation and test-file predictions
+stylometry/__main__.py   command-line interface
+tests/                   unit tests
+legacy/                  original course solution
+```
 
-Enthält Funktionen zum Einlesen und Vorbereiten der Textdateien.
+## Limitations
+- The Schiller reference (*Briefe Schillers und Goethes an A. W. Schlegel*) also contains letters by Goethe,
+  so the Schiller profile is partly mixed.
+- The Wittgenstein reference contains German and English text (bilingual edition).
+- Texts below ~1,000 words cannot be attributed reliably; the tool warns about this.
+- `texte/autor1.txt` is a short excerpt that also appears in the Busoni reference, so it is not used for evaluation.
 
-Funktionen:
-
-- read_file()
-- preprocessing()
-
-
-### textanalyse.py
-
-Enthält die Funktionen zur Analyse eines Textes.
-
-Unter anderem werden hier DWL, TTR, HLR, DSL und DSS berechnet.
-
-Funktionen:
-
-- get_words()
-- count_words()
-- count_different_words()
-- count_unique_words()
-- average_word_length()
-- ttr()
-- hlr()
-- get_sentences()
-- words_per_sentence()
-- parts_per_sentence()
-- get_signature()
-
-
-### autoren.py
-
-Enthält die Funktionen für den Vergleich der Textsignaturen.
-
-Funktionen:
-
-- get_author_signature()
-- similarity()
-- find_best_author()
-
-
-### texte/
-
-Dieser Ordner enthält die verwendeten Referenztexte und Testtexte.
-
-### API-Dokumentation/
-
-Dieser Ordner enthält die Dokumentationen der verwendeten Module im HTML-Format.
-
-## Benutzung
-
-Das Programm wird über main.py gestartet.
-
-Zum Beispiel:
-
-python3 main.py
-
-Anschließend wird nach dem Namen einer Textdatei gefragt:
-
-Dateiname im Ordner texte: faust-test.txt
-
-Die angegebene Datei muss sich im Ordner "texte" befinden.
-
-Danach gibt das Programm die berechneten Eigenschaften des Textes,
-die Signaturen der Referenztexte, die Ähnlichkeitswerte und die
-wahrscheinlichste Zuordnung aus.
-
-
-## Beispiel
-
-Eingabe:
-
-faust-test.txt
-
-Ergebnis:
-
-Wahrscheinlichste Zuordnung: Goethe (Faust)
-Ähnlichkeitswert: 3.29
-
-
-Ein weiterer Test mit einem Teil der "Italienischen Reise" ergab:
-
-Wahrscheinlichste Zuordnung: Goethe (Italienische Reise)
-Ähnlichkeitswert: 4.40
-
-
-## Hinweis
-
-Die Zuordnung basiert auf statistischen Eigenschaften der Texte.
-Sie stellt daher keine sichere Bestimmung des Autors dar.
-
-Insbesondere Textlänge, Textsorte und Schreibstil können die
-berechneten Signaturen beeinflussen.
+## Tech
+Python · stylometry · Burrows' Delta · z-scores · cosine distance · n-grams · unittest
